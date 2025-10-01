@@ -28,7 +28,7 @@ jobs:
       - name: Build (installDist)
         run: |
           ./gradlew properties
-          ./gradlew --no-daemon clean :installDist
+          ./gradlew --no-daemon clean :engine:installDist
 
       - name: Debug
         run: |
