@@ -26,7 +26,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build (installDist)
-        run: ./gradlew --no-daemon clean installDist
+        run: ./gradlew --no-daemon clean :installDist
 
       - name: Upload installDist artifact
         uses: actions/upload-artifact@v4
