@@ -26,7 +26,9 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build (installDist)
-        run: ./gradlew --no-daemon clean :installDist
+        run: |
+          ./gradlew properties
+          ./gradlew --no-daemon clean :installDist
 
       - name: Debug
         run: |
