@@ -29,6 +29,7 @@ dependencies {
 }
 
 application {
+  applicationName = "engine"
   mainClass = "org.jetbrains.java.decompiler.main.decompiler.ConsoleDecompiler"
 }
 
