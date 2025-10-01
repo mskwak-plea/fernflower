@@ -25,16 +25,11 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x gradlew
 
-      - name: Build (Jar)
-        run: ./gradlew --no-daemon clean build
+      - name: Build (installDist)
+        run: ./gradlew --no-daemon clean installDist
 
-      - name: Locate artifacts
-        id: files
-        run: |
-          echo "jar_path=$(ls -1 build/libs/*.jar | tr '\n' ' ')" >> $GITHUB_OUTPUT
-
-      - name: Upload JAR as artifact
+      - name: Upload installDist artifact
         uses: actions/upload-artifact@v4
         with:
-          files: ${{ steps.files.outputs.jar_path }}
-          name: build.jar
+          name: engine-install
+          path: build/install/engine/**  # <- 여기 bin/, lib/ 다 포함됨
