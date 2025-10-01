@@ -29,7 +29,10 @@ jobs:
         run: ./gradlew --no-daemon clean :installDist
 
       - name: Debug
-        run: ls -al build/install/engine
+        run: |
+          ls -al build/ || true
+          ls -al build/install || true
+          ls -al build/install/engine || true
 
       - name: Upload installDist artifact
         uses: actions/upload-artifact@v4
