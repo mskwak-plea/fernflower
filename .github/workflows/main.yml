@@ -1,0 +1,40 @@
+name: Release on tag
+
+on: push
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Temurin JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
+      - name: Build (Jar)
+        run: ./gradlew --no-daemon clean build
+
+      - name: Locate artifacts
+        id: files
+        run: |
+          echo "jar_path=$(ls -1 build/libs/*.jar | tr '\n' ' ')" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.files.outputs.jar_path }}
+          generate_release_notes: false
